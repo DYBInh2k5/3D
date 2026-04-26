@@ -160,11 +160,16 @@ window.addEventListener('resize', () => {
   composer.setSize(window.innerWidth, window.innerHeight);
 });
 
-const clock = new THREE.Clock();
+// Use performance.now() or a simple timer for animation
+let lastTime = 0;
 
-function animate() {
+function animate(currentTime) {
   requestAnimationFrame(animate);
-  const elapsedTime = clock.getElapsedTime();
+  
+  // Convert to seconds
+  const elapsedTime = currentTime * 0.001 || 0;
+  const deltaTime = elapsedTime - lastTime;
+  lastTime = elapsedTime;
 
   // Update particles
   particleSystem.rotation.y = elapsedTime * 0.05;
